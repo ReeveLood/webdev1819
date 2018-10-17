@@ -1,0 +1,14 @@
+.smol-image {
+    width: 400px;
+    height: 400px;
+}
+h1 {
+    text-align: center;
+    border: 2px solid red;
+}
+.a {
+    list-style-type: square;
+}
+.b {
+    color: red;
+}
