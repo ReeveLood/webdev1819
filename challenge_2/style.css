@@ -2,6 +2,9 @@
     width: 400px;
     height: 400px;
 }
+html {
+    background-color: #7bfbbf;
+}
 h1 {
     text-align: center;
     border: 2px solid red;
@@ -11,4 +14,11 @@ h1 {
 }
 .b {
     color: red;
+}
+.c {
+    color: blue;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
