@@ -1,0 +1,44 @@
+html {
+    background-color: #d5fdce
+}
+a:hover {
+    margin: 500px;
+}
+h1 {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: blue;
+}
+img {
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    border-width: 5px;
+    border-color: red;
+    border-style: solid;
+}
+figcaption {
+    text-align: center;
+    margin-top: -2px;
+    display: block;
+}
+.hooray {
+    margin-left: 400px;
+    margin-right: 400px;
+    border-radius: 25px;
+    border-width: 5px;
+    border-color: blue;
+    border-style: solid;
+}
+.yeet {
+    text-indent: 50px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+.center {
+    text-align: center;
+}
