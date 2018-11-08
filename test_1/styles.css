@@ -1,0 +1,59 @@
+html {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+h1 {
+    color: orange;
+}
+.feature {
+    color: red;
+}
+a {
+    text-decoration: none;
+}
+.main {
+    background-color: lightblue;
+    box-shadow: 10px 10px 10px;
+    border-radius: 25px;
+}
+section {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.main2 {
+    border-style: dotted;
+    border-color: green;
+}
+em {
+    background-color: yellow;
+}
+.secondary {
+    background-color: white;
+}
+.noindent {
+    margin-left: 0px;
+}
+.pink {
+    background-color: pink;
+}
+.aqua {
+    background-color: aquamarine;
+}
+.lemon {
+    background-color: yellow;
+}
+.grape {
+    background-color: purple;
+}
+.penguin {
+    border-style: dotted;
+    border-color: green;
+    height: 200px;
+    background-image: url("http://goo.gl/e2x4ZK");
+    background-repeat: no-repeat;
+}
+.inline {
+    display: inline;
+}
+ol {
+    list-style-type: lower-alpha;
+}
