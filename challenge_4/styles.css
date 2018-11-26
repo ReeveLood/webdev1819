@@ -3,4 +3,8 @@ body {
 }
 .jumbotron {
     background-color: #fba7ad;
+    font-family: 'Montserrat', sans-serif;
+}
+.form-inline {
+    margin-left: 1300px;
 }
