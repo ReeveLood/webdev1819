@@ -19,14 +19,17 @@ p {
 .img1 {
   width: 95%;
   margin-top: 45vh;
+  border: 5px solid black;
 }
 .img2 {
   width: 85%;
   margin-top: 135vh;
+  border: 5px solid black;
 }
 .img3 {
   width: 85%;
   margin-top: 140vh;
+  border: 5px solid black;
 }
 #con1 {
   border-color: black;
