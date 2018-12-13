@@ -1,0 +1,37 @@
+html, body {
+    font-family: "Georgia", Georgia, serif;
+}
+#main {
+  text-align: center;
+  background: #ddffcc;
+  margin-bottom: 15px;
+}
+#title {
+  text-align: center;
+  background-color: black;
+}
+p {
+  margin: 20px auto;
+  font-size: 18px;
+  max-width: 450px;
+  text-align: justify;
+}
+.img1 {
+  width: 95%;
+  margin-top: 45vh;
+}
+.img2 {
+  width: 85%;
+  margin-top: 135vh;
+}
+.img3 {
+  width: 85%;
+  margin-top: 140vh;
+}
+#con1 {
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  box-shadow: 1px 5px 5px black;
+  background-color: #e6ffe6;
+}
