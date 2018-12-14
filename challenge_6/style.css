@@ -31,6 +31,9 @@ p {
   margin-top: 140vh;
   border: 5px solid black;
 }
+.carimg {
+  width: 50%;
+}
 #con1 {
   border-color: black;
   border-width: 3px;
