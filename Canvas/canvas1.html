@@ -9,31 +9,36 @@
 <body>
     <canvas id="myCanvas" width="400px" height="400px">
         <script>
+        var x = 0;
             function init() {
                 window.requestAnimationFrame(draw);
             }
             function draw(){
                 var canvas = document.querySelector("#myCanvas");
                 var context = canvas.getContext("2d");
-                context.clearRect(0, 0, 300, 300)
-                context.translate(50, 50);
                 context.save();
+                context.translate(50, 50);
                 context.rotate(-10 * Math.PI / 180);
-                context.moveTo(50, 50);
-                context.lineTo(50, 150);
-                context.moveTo(50, 50);
-                context.lineTo(75, 75);
-                context.lineTo(50, 100);
-                context.lineTo(75, 150);
-                context.moveTo(125, 50);
-                context.lineTo(125, 150);
-                context.lineTo(175, 150);
-                context.lineWidth = 15;
-                
-                context.strokeStyle = "red";
-                context.stroke();
+                context.clearRect(0, 0, 5000, 5000);
                 context.restore();
-                context.clearRect(0, 0, 300, 300)
+                x = x + 1;
+                
+            
+                context.moveTo(50 + x, 50 + x);
+                context.lineTo(50 + x, 150 + x);
+                context.moveTo(50 + x, 50 + x);
+                context.lineTo(75 + x, 75 + x);
+                context.lineTo(50 + x, 100 + x);
+                context.lineTo(75 + x, 150 + x);
+                context.moveTo(125 + x, 50 + x);
+                context.lineTo(125 + x, 150 + x);
+                context.lineTo(175 + x, 150 + x);
+                context.lineWidth = 5 - (x / 15);
+                context.strokeStyle = "red";
+                context.clearRect(0, 0, 5000, 5000);
+                context.stroke();
+                
+            
                 window.requestAnimationFrame(draw);
             }
             init();
