@@ -8,41 +8,58 @@
 </head>
 <body>
     <canvas id="myCanvas" width="400px" height="400px">
+    </canvas>
         <script>
-        var x = 0;
-            function init() {
-                window.requestAnimationFrame(draw);
-            }
+            var x = 0;
+            var canvasThick = 100;
+            var canvasTicker = 0;
+            var canvasTicker2 = 0;
+            var canvas = document.getElementById("myCanvas");
+            var context = canvas.getContext("2d");
+            var canvasWidth = canvas.width;
+            var canvasHeight = canvas.height;
+            context.lineWidth = 100;
+            var requestAnimationFrame = window.requestAnimationFrame || 
+                                    window.mozRequestAnimationFrame || 
+                                    window.webkitRequestAnimationFrame || 
+                                    window.msRequestAnimationFrame;
             function draw(){
-                var canvas = document.querySelector("#myCanvas");
-                var context = canvas.getContext("2d");
-                context.save();
-                context.translate(50, 50);
-                context.rotate(-10 * Math.PI / 180);
-                context.clearRect(0, 0, 5000, 5000);
-                context.restore();
+                context.clearRect(0, 0, canvasWidth, canvasHeight);
                 x = x + 1;
-                
-            
+                context.fillStyle = "#EEEEEE";
+                context.fillRect(0, 0, canvasWidth, canvasHeight);
+                context.beginPath();
                 context.moveTo(50 + x, 50 + x);
+                
                 context.lineTo(50 + x, 150 + x);
                 context.moveTo(50 + x, 50 + x);
+                
                 context.lineTo(75 + x, 75 + x);
                 context.lineTo(50 + x, 100 + x);
                 context.lineTo(75 + x, 150 + x);
                 context.moveTo(125 + x, 50 + x);
                 context.lineTo(125 + x, 150 + x);
                 context.lineTo(175 + x, 150 + x);
-                context.lineWidth = 5 - (x / 15);
+                if (context.lineWidth <= 100 && context.lineWidth > 1 && canvasTicker < 100) {
+                    console.log(context.lineWidth);
+                    context.lineWidth = canvasThick - canvasTicker;
+                    canvasTicker++;
+                } else {
+                    context.lineWidth = 1 + canvasTicker2;
+                    canvasTicker2++;
+                }
                 context.strokeStyle = "red";
-                context.clearRect(0, 0, 5000, 5000);
-                context.stroke();
                 
-            
-                window.requestAnimationFrame(draw);
+                context.stroke();
+                context.closePath();
+                requestAnimationFrame(draw);
             }
-            init();
+            draw();
         </script>
-    </canvas>
 </body>
 </html>
+<!--context.save();
+context.translate(50, 50);
+context.rotate(-10 * Math.PI / 180);
+context.restore();
+                

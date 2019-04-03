@@ -16,88 +16,36 @@
         var canvasWidth = mainCanvas.width;
         var canvasHeight = mainCanvas.height;
          
-        // this array contains a reference to every circle that you will create
-        var circles = new Array();
+        var angle = 0;
          
-        //
-        // The Circle "constructor" is responsible for creating the circle objects and defining the various properties
-        // they have
-        //
-        function Circle(angle, sign, radius, rotationRadius, initialX, initialY) {
-            this.angle = angle;
-            this.sign = sign;
-            this.radius = radius;
-            this.rotationRadius = rotationRadius;
-            this.initialX = initialX;
-            this.initialY = initialY;
-            this.incrementer = .01 + Math.random() * .1;
-        }
+        var requestAnimationFrame = window.requestAnimationFrame || 
+                                    window.mozRequestAnimationFrame || 
+                                    window.webkitRequestAnimationFrame || 
+                                    window.msRequestAnimationFrame;
          
-        Circle.prototype.update = function () {
-         
-            this.angle += this.incrementer;
+        function drawCircle() {
+            
              
-            this.currentX = this.initialX + this.rotationRadius * Math.cos(this.angle);
-            this.currentY = this.initialY + this.rotationRadius * Math.sin(this.angle);
-             
-            if (this.angle >= (Math.PI * 2)) {
-                this.angle = 0;
-                this.incrementer = .01 + Math.random() * .1;
-            }
-         
-            // The following code is responsible for actually drawing the circle on the screen
-            mainContext.beginPath();
-            mainContext.arc(this.currentX, this.currentY, this.radius, 0, Math.PI * 2, false);
-            mainContext.closePath();
-            mainContext.fillStyle = 'rgba(177, 0, 129, .1)';
-            mainContext.fill();
-        };
-         
-        //
-        // This function creates the circles that you end up seeing
-        //
-        function createCircles() {
-        // change the range of this loop to adjust the number of circles that you see
-            for (var i = 0; i < 250; i++) {
-                var radius = 5 + Math.random() * 80;
-                var initialX = canvasWidth / 2;
-                var initialY = canvasHeight / 2;
-                var rotationRadius = 1 + Math.random() * 500;
-                var angle = Math.random() * 5 * Math.PI;
-                 
-                var signHelper = Math.floor(Math.random() * 2);
-                var sign;
-                 
-                // Randomly specify whether the circle will be rotating clockwise or counterclockwise
-                if (signHelper == 1) {
-                    sign = -1;
-                } else {
-                    sign = 1;
-                }
-                 
-                // create the Circle object
-                var circle = new Circle(angle, sign, radius, rotationRadius, initialX, initialY);
-                circles.push(circle);
-            }
-             
-            // call the draw function approximately 60 times a second
-            requestAnimationFrame(draw);
-        }
-        createCircles();
-         
-        function draw() {
-            mainContext.clearRect(0, 0, canvasWidth, canvasHeight);
-            mainContext.fillStyle = '#F6F6F6';
+            // color in the background
+            mainContext.fillStyle = "#EEEEEE";
             mainContext.fillRect(0, 0, canvasWidth, canvasHeight);
              
-            for (var i = 0; i < circles.length; i++) {
-                var circle = circles[i];
-                circle.update();
-            }
+            // draw the circle
+            mainContext.beginPath();
              
-            // call the draw function again!
-            requestAnimationFrame(draw);
+            var radius = 25 + 150 * Math.abs(Math.cos(angle));
+            mainContext.arc(225, 225, radius, 0, Math.PI * 2, false);
+            mainContext.closePath();
+             
+            // color in the circle
+            mainContext.fillStyle = "#006699";
+            mainContext.fill();
+              
+            angle += Math.PI / 64;
+             
+            requestAnimationFrame(drawCircle);
         }
+        drawCircle();
     </script>
 </body>
 </html>
