@@ -11,14 +11,14 @@
     </canvas>
         <script>
             var x = 0;
-            var canvasThick = 100;
+            var canvasThick = 20;
             var canvasTicker = 0;
             var canvasTicker2 = 0;
             var canvas = document.getElementById("myCanvas");
             var context = canvas.getContext("2d");
             var canvasWidth = canvas.width;
             var canvasHeight = canvas.height;
-            context.lineWidth = 100;
+            context.lineWidth = 20;
             var requestAnimationFrame = window.requestAnimationFrame || 
                                     window.mozRequestAnimationFrame || 
                                     window.webkitRequestAnimationFrame || 
@@ -40,14 +40,14 @@
                 context.moveTo(125 + x, 50 + x);
                 context.lineTo(125 + x, 150 + x);
                 context.lineTo(175 + x, 150 + x);
-                if (context.lineWidth <= 100 && context.lineWidth > 1 && canvasTicker < 100) {
+                if (context.lineWidth <= 20 && context.lineWidth > 1 && canvasTicker < 20) {
                     console.log(context.lineWidth);
                     context.lineWidth = canvasThick - canvasTicker;
                     canvasTicker++;
                 } else {
                     context.lineWidth = 1 + canvasTicker2;
                     canvasTicker2++;
-                    if (canvasTicker2 == 100) {
+                    if (canvasTicker2 == 20) {
                         canvasTicker = 0;
                         canvasTicker2 = 0;
                     }
