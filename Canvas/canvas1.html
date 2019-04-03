@@ -25,7 +25,7 @@
                                     window.msRequestAnimationFrame;
             function draw(){
                 context.clearRect(0, 0, canvasWidth, canvasHeight);
-                x = x + 1;
+                x += .5;
                 context.fillStyle = "#EEEEEE";
                 context.fillRect(0, 0, canvasWidth, canvasHeight);
                 context.beginPath();
@@ -47,6 +47,10 @@
                 } else {
                     context.lineWidth = 1 + canvasTicker2;
                     canvasTicker2++;
+                    if (canvasTicker2 == 100) {
+                        canvasTicker = 0;
+                        canvasTicker2 = 0;
+                    }
                 }
                 context.strokeStyle = "red";
                 
