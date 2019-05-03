@@ -1,0 +1,247 @@
+<html>
+<head>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+            border: #333 1px solid;
+        }
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <canvas id="myCanvas" width="480px" height="320px">
+    </canvas>
+    <button style="position: absolute; top:15px; left:450px;" onclick="myFunction()">Click for faster speed!</button>;
+    <button style="position: absolute; top:30px; left:450px;" onclick="pauseGame()">Pause the game.</button>;
+    <script>
+        var userDifficulty = prompt("Choose a speed you want from 0-20. Higher = faster.");
+        if (userDifficulty >= 0 && userDifficulty <= 20){
+            var difficulty = userDifficulty;
+        } else {
+            var difficulty = 0;
+        }
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        if (userDifficulty != difficulty){
+            var myVar = setInterval(draw, 20);
+        } else {
+            var myVar = setInterval(draw, 20 - (difficulty * 1) );
+        }
+        var pauseTrue = 0;
+        function myFunction(){
+            difficulty++;
+            if (pauseTrue == 0){
+                clearInterval(myVar);
+                myVar = setInterval(draw, 20 - (difficulty * 1) );
+            }
+        }
+        function pauseGame(){
+            if (pauseTrue == 0){
+                ctx.font = "30px Arial";
+                ctx.fillText("PAUSED", 190, 25);
+                clearInterval(myVar);
+                pauseTrue++;
+            } else if (pauseTrue == 1) {
+                pauseTrue--;
+                difficulty--;
+                myFunction();
+            }
+        }
+        var x = canvas.width/2;
+        var y = canvas.height - 30;
+        var dx = 2;
+        var dy = -2;
+        var ballRadius = 10;
+        var randomColor = "red";
+        var backColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+        var paddleHeight = 10;
+        var paddleWidth = 75;
+        var paddleX = (canvas.width - paddleWidth)/2;
+        var rightPressed = false;
+        var leftPressed = false;
+        var brickRowCount = 3;
+        var brickColumnCount = 5;
+        var brickWidth = 75;
+        var brickHeight = 20;
+        var brickPadding = 10;
+        var brickOffsetTop = 30;
+        var brickOffsetLeft = 30;
+        var score = 0;
+        var lives = 3;
+        var colorBricks = 1;
+
+        var bricks = [];
+        for(var c = 0; c < brickColumnCount; c++){
+        	bricks[c] = [];
+        	for(var r = 0; r < brickRowCount; r++){
+        		bricks[c][r] = { x:0, y:0, status: 1, color: ""};
+        	}
+        }
+        
+        function drawScore(){
+        	ctx.font = "16px Arial";
+        	ctx.fillStyle = "red";
+        	ctx.fillText("Score: " + score, 8, 20);
+        }
+        
+
+
+        function drawBricks() {
+        	for(var c = 0; c < brickColumnCount; c++){
+        	    var brickX = (c*(brickWidth + brickPadding)) + brickOffsetLeft;
+        		for(var r = 0; r < brickRowCount; r++){
+        		    if (bricks[c][r].status == 1){
+        		        var randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            		    var brickY = (r*(brickHeight + brickPadding)) + brickOffsetTop;
+            			bricks[c][r].x = brickX;
+            			bricks[c][r].y = brickY;
+            			ctx.beginPath();
+            			ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            			if (colorBricks == 1){
+            			    bricks[c][r].color = randomColor;
+            			}
+            			ctx.fillStyle = bricks[c][r].color;
+            			ctx.fill();
+            			ctx.closePath();
+        		    }
+        		}
+        	}
+        }
+        
+        function collisionDetection() {
+        	for(var c = 0; c < brickColumnCount; c++){
+        		for(var r = 0; r < brickRowCount; r++){
+        			var b = bricks[c][r];
+        			if(b.status == 1){
+        				if(x > b.x && x < b.x+brickWidth && y>b.y && y<b.y + brickHeight){
+        					dy = -dy;
+        					b.status = 0;
+        					score++;
+        					if (score == brickRowCount * brickColumnCount) {
+        					    alert("YOU WIN! Speed: " + difficulty);
+        					    document.location.reload();
+        					}
+        				}
+        			}
+        		}
+        	}
+        }
+
+
+
+        function drawBall(color){
+            
+        	ctx.beginPath();
+        	ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        	ctx.fillStyle = color;
+        	ctx.fill();
+        	ctx.closePath();
+        } 
+        function drawPaddle(){
+        	ctx.beginPath();
+        	ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+        	ctx.fillStyle = "blue";
+        	ctx.fill();
+        	ctx.closePath();
+        }
+        function drawLives(){
+            ctx.font = "16px Arial";
+        	ctx.fillStyle = "blue";
+        	ctx.fillText("Lives: " + lives, 420, 20);
+        }
+        function drawDifficulty(){
+            ctx.font = (10 + difficulty) +"px Arial";
+            ctx.fillStyle = "purple"
+            if (difficulty != null) {
+                ctx.fillText(difficulty, 430,300);
+            } else {
+                ctx.fillText("0", 430,300);
+            }
+        }
+        function draw(){
+        	ctx.clearRect(0, 0, canvas.width, canvas.height);
+        	ctx.fillStyle = backColor;
+        	ctx.font = (10 + difficulty) +"px Arial";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        	drawDifficulty();
+        	drawScore();
+        	drawLives();
+        	drawPaddle();
+        	drawBricks();
+        	if (colorBricks == 1){
+        	    colorBricks--;
+        	}
+        	collisionDetection();
+        	if(rightPressed && paddleX < canvas.width-paddleWidth){
+            	paddleX += 7;
+            } else if(leftPressed && paddleX > 0){
+            	paddleX -= 7;
+            }
+        	x += dx;
+        	y += dy;
+            if(y + dy < ballRadius){
+            	dy = -dy;
+            	randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            } else if (y + dy > canvas.height-ballRadius){
+                if(x > paddleX && x < paddleX + paddleWidth) {
+            		dy = -dy
+                } else {
+            		if (lives <= 1) {
+                	    alert("GAME OVER");
+                	    document.location.reload();
+                	} else {
+                	    lives--;
+                	    x = canvas.width/2 - 50;
+                	    y = canvas.height - 30;
+                	    dx = 2;
+                	    dy = -2;
+                	}
+                }
+            }
+
+            if(y + dy > canvas.height - ballRadius){
+            	dy = -dy;
+            	randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            }
+            if(x + dx > canvas.width - ballRadius || x + dx < ballRadius){
+            	dx = -dx;
+            	randomColor = 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';
+            }
+            drawBall(randomColor);
+        }
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+        function keyDownHandler(e){
+        	if(e.keyCode == 39){
+        		rightPressed = true;
+        	} else if(e.keyCode == 37){
+        		leftPressed = true;
+        	} else if(e.keyCode == 65) {
+        	    leftPressed = true;
+        	} else if (e.keyCode == 68){
+        	    rightPressed = true;
+        	}
+        }
+        
+        function keyUpHandler(e){
+        	if(e.keyCode == 39){
+        		rightPressed = false;
+        	} else if(e.keyCode == 37){
+        		leftPressed = false;
+        	} else if(e.keyCode == 65) {
+        	    leftPressed = false;
+        	} else if (e.keyCode == 68){
+        	    rightPressed = false;
+        	}
+        }
+        
+        draw();
+    </script>
+</body>
+</html>
